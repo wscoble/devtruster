@@ -1,0 +1,69 @@
+lb:
+  build: ./nginx
+  links:
+    - consul
+  ports:
+    - "80:80"
+
+consul:
+  image: progrium/consul:latest
+  command: -server -bootstrap -advertise 192.168.99.100
+  ports:
+  - "8300:8300"
+  - "8400:8400"
+  - "8500:8500"
+  - "8600:53/udp"
+
+app:
+  build: ./rails
+  command: bin/rails server -p 3000 -b 0.0.0.0
+  ports:
+    - "3000"
+  links:
+    - db
+    - redis
+    - orientdb
+  volumes:
+    - ./rails:/myapp
+  environment:
+    SERVICE_3000_NAME: app
+    SERVICE_NAME: app
+    SERVICE_TAGS: development
+
+db:
+  image: tutum/mysql:5.6
+  ports:
+    - "3306"
+  environment:
+    MYSQL_PASS: asdf
+    ON_CREATE_DB: devtester_development
+    SERVICE_3306_NAME: db
+    SERVICE_NAME: db
+    SERVICE_TAGS: development
+
+redis:
+  image: redis:3
+  ports:
+    - "6379"
+  environment:
+    SERVICE_6379_NAME: cache
+    SERVICE_NAME: cache
+    SERVICE_TAGS: development
+
+orientdb:
+  image: joaodubas/orientdb
+  ports:
+    - "2424"
+    - "2480"
+  environment:
+    ORIENTDB_ROOT_PASSWORD: asdf
+    SERVICE_NAME: graph
+    SERVICE_TAGS: development
+
+registrator:
+  command: consul://consul:8500
+  image: progrium/registrator:latest
+  links:
+  - consul
+  volumes:
+  - "/var/run/docker.sock:/tmp/docker.sock"

@@ -1,0 +1,13 @@
+development: &default
+  adapter: mysql2
+  database: devtester_development
+  min_messages: WARNING
+  pool: 5
+  username: admin
+  password: asdf
+  host: <%= ENV['DB_1_PORT_3306_TCP_ADDR'] %>
+  port: <%= ENV['DB_1_PORT_3306_TCP_PORT'] %>
+
+test:
+  <<: *default
+  database: devtester_test

@@ -1,0 +1,18 @@
+@startuml
+top to bottom direction
+
+title Devtruster Model
+
+(contributor)
+(identity)
+(repository)
+
+(identity) --> (repository) : owns
+(identity) --> (contributor) : is
+(identity) -> (identity) : knows other
+
+(repository) --> (contributor) : has many
+
+
+
+@enduml

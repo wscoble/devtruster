@@ -1,0 +1,4 @@
+#!/bin/bash
+
+alias rails='compose run app rails'
+alias rake='compose run app rake'
