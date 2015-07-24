@@ -5,7 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-identities = Identity.create([
-  {token: 'asdf', url: 'https://twitter.com/lvcodesmith', title: '@lvcodesmith', name: 'Scott Scoble'}
-  ])

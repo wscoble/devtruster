@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+  access_denied: "Access denied."
+  must_sign_in: "You need to sign in for access to this page."
+  signed_in: "Signed in!"
+  signed_out: "Signed out!"
+  auth_error: "Authentication error:"

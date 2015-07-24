@@ -1,0 +1,61 @@
+@startuml
+
+title Github Workflows and Event Handling
+
+actor User as u
+participant Devtruster as d
+participant Github as g
+participant Mandrill as m
+participant Twitter as t
+
+...
+u -> d : Sign Up
+activate u
+d -> g : OAuth login
+g -> u : OAuth callback
+u -> d : visit callback url
+d -> d : log in user
+d --> m : new user
+d -> u : session
+deactivate u
+...
+u -> d : Find contributors
+activate u
+d -> g : register hooks
+d --> m : new project
+d -> u : project registered
+u -> d : activate project
+u -> d : add keywords to activated project
+d -> d : update project
+d -> u : project updated
+deactivate u
+...
+u -> d : Find projects
+activate u
+u -> d : my keywords
+u -> d : my email
+d -> d : register new contributor
+d --> m : register new contributor
+d -> u : session
+deactivate u
+...
+g -> d : [member, membership, team_add]
+d -> d : update User who becomes a member
+d --> m : send user notification of membership
+...
+g -> d : [issues, issue_comment]
+d -> d : update issues for project, find contributors
+== If there are matched users ==
+d --> m : send contribute request to matched users
+== If there are no matched users ==
+d --> t : tweet out the contribute request
+...
+g -> d : [pull_request, pull_request_review_comment]
+d -> d : update activity for user, adjust metrics
+d --> m : send weekly metrics update
+...
+g -> d : [ping]
+d -> d : record project set up properly
+d --> m : send thank you message to project owner
+...
+@enduml

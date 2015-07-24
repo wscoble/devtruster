@@ -11,28 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719001544) do
+ActiveRecord::Schema.define(version: 20150722044929) do
 
-  create_table "contributors", force: :cascade do |t|
-    t.boolean  "owner"
-    t.boolean  "editor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "identities", force: :cascade do |t|
-    t.string   "token",      limit: 255
-    t.string   "url",        limit: 255
-    t.string   "title",      limit: 255
+  create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "repositories", force: :cascade do |t|
-    t.string   "url",        limit: 255
-    t.string   "host",       limit: 255
-    t.boolean  "private"
+    t.string   "provider",   limit: 255
+    t.string   "uid",        limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
