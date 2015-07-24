@@ -1,3 +1,4 @@
+
 lb:
   build: ./nginx
   links:
@@ -24,13 +25,12 @@ app:
     - redis
   volumes:
     - ./rails:/myapp
+  env_file: .env
   environment:
     SERVICE_3000_NAME: app
     SERVICE_NAME: app
     SERVICE_TAGS: development
     RAILS_ENV: development
-    OMNIAUTH_PROVIDER_KEY: 7a7d2ef07ef09e00926e
-    OMNIAUTH_PROVIDER_SECRET: 1781d9bcc97d6a5033d51fd687b40af908c76cbf
 
 db:
   image: tutum/mysql:5.6

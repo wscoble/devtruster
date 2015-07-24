@@ -18,3 +18,4 @@
 
 rails/tmp
 rails/log/*log
+.env
